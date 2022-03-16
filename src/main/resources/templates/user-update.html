@@ -8,28 +8,35 @@
 <body>
 <div>
     <h2>Update user</h2>
-    <form  action="#" th:action="@{user-update}" th:object="${user}" method="post">
+    <form action="#" th:action="@{user-update}" th:object="${user}" method="post">
 
         <input type="hidden" th:field="*{id}"/>
 
         <label for="name">Name</label>
         <br>
-        <input type="text" th:field="*{name}" id="name" >
+        <input type="text" th:field="*{name}" id="name">
         <br>
-        <br>
+
         <label for="surname">Surname</label>
         <br>
-        <input type="text" th:field="*{surname}" id="surname" >
+        <input type="text" th:field="*{surname}" id="surname">
         <br>
-        <br>
+
         <label for="age">Age</label>
         <br>
-        <input type="text" th:field="*{age}" id="age" >
+        <input type="text" th:field="*{age}" id="age">
         <br>
+        <label for="age">Username</label>
+        <br>
+        <input type="text" th:field="*{username}" id="username">
+        <br>
+        <label for="age">Password</label>
+        <br>
+        <input type="text" th:field="*{password}" id="password">
         <br>
 
         <button type="submit">Update</button>
-<br>
+        <br>
         <a th:href="@{/logout}">logout</a>
     </form>
 </div>
