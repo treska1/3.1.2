@@ -6,7 +6,30 @@
 <body>
 <h1>User, welcome spring boot security page!</h1>
 <br>
-<div
+<div>
+    <div>
+        <table border="5" >
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Age</th>
+                <th>Username</th>
+                <th>Roles</th>
+
+
+            </tr>
+            <tr>
+                <td th:text="${user.name}">Name</td>
+                <td th:text="${user.surname}">Surname</td>
+                <td th:text="${user.age}">Age</td>
+                <td th:text="${user.username}">Username</td>
+                <td th:each="role : ${role}" th:text="${role.name}">Role</td>
+
+
+            </tr>
+        </table>
+    </div>
+</div>
 <br>
 <a th:href="@{/logout}">logout</a>
 

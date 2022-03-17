@@ -9,6 +9,7 @@ import ru.kata.spring.boot_security.demo.model.User;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.Collections;
 import java.util.List;
 
@@ -53,8 +54,8 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User getUserByUsername(String username) {
-        Query query = manager.createQuery("select u from User u where u.username = :username", User.class)
+        TypedQuery<User> query = manager.createQuery("select u from User u where u.username = :username", User.class)
                 .setParameter("username", username);
-        return (User) query.getSingleResult();
+        return query.getSingleResult();
     }
 }
