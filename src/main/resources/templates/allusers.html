@@ -14,11 +14,20 @@
             <th>Name</th>
             <th>Surname</th>
             <th>Age</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Roles</th>
+
+
         </tr>
         <tr th:each="user : ${allUsers}">
             <td th:text="${user.name}">Name</td>
             <td th:text="${user.surname}">Surname</td>
             <td th:text="${user.age}">Age</td>
+            <td th:text="${user.username}">Username</td>
+            <td th:text="${user.password}">Password</td>
+            <td th:each="role : ${user.roles}" th:text="${role.name}">Role</td>
+
             <td><a th:href="@{user-update/{id}(id=${user.id})}">Edit</a></td>
             <td><a th:href="@{user-delete/{id}(id=${user.id})}">Delete</a></td>
         </tr>
