@@ -60,6 +60,7 @@ public class AdminController {
     @PostMapping("/user-update/{id}")
     public String userUpdate(@ModelAttribute("user") User user) {
         userService.updateUser(user);
+
         return "redirect:/admin/allusers";
 
     }

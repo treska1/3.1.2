@@ -3,11 +3,13 @@ package ru.kata.spring.boot_security.demo.userDAO;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
+import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -23,6 +25,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void updateUser(User user) {
+
         manager.merge(user);
     }
 
@@ -34,7 +37,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void saveUser(User user) {
         user.setPassword(encoder.encode(user.getPassword()));
-        user.setUsername(user.getUsername());
+        user.setRoles(Collections.singleton(new Role(2L,"ROLE_USER")));
         manager.persist(user);
     }
 
