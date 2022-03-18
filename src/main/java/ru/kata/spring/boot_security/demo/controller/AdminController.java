@@ -37,12 +37,18 @@ public class AdminController {
         return "allusers";
     }
     @GetMapping("/user-create")
-    public String createUserForm(User user) {
+    public String createUserForm(User user, Model model) {
+        model.addAttribute("user", user);
         return "user-create";
     }
 
     @PostMapping("/user-create")
-    public String createUser(User user) {
+    public String createUser(User user,@RequestParam("roleSelect") long []roles) {
+        Set<Role> roleSet = new HashSet<>();
+        for (long role: roles) {
+            roleSet.add(roleService.getRoleById(role));
+        }
+        user.setRoles(roleSet);
         userService.saveUser(user);
         return "redirect:/admin/allusers";
     }
