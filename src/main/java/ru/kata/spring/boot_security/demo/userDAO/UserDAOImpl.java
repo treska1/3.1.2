@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.userDAO;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import ru.kata.spring.boot_security.demo.model.Role;
@@ -9,8 +10,10 @@ import ru.kata.spring.boot_security.demo.model.User;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.util.Collections;
+import javax.persistence.TypedQuery;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
@@ -18,14 +21,16 @@ public class UserDAOImpl implements UserDAO {
     private EntityManager manager;
 
     private final PasswordEncoder encoder;
+    private final RoleDAO roleDAO;
 
-    public UserDAOImpl(PasswordEncoder encoder) {
+    @Autowired
+    public UserDAOImpl(PasswordEncoder encoder, RoleDAO roleDAO) {
         this.encoder = encoder;
+        this.roleDAO = roleDAO;
     }
 
     @Override
     public void updateUser(User user) {
-
         manager.merge(user);
     }
 
@@ -37,7 +42,9 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void saveUser(User user) {
         user.setPassword(encoder.encode(user.getPassword()));
-        user.setRoles(Collections.singleton(new Role(2L,"ROLE_USER")));
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleDAO.getRoleById(2L));
+        user.setRoles(roles);
         manager.persist(user);
     }
 
@@ -53,8 +60,8 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User getUserByUsername(String username) {
-        Query query = manager.createQuery("select u from User u where u.username = :username", User.class)
+        TypedQuery<User> query = manager.createQuery("select u from User u where u.username = :username", User.class)
                 .setParameter("username", username);
-        return (User) query.getSingleResult();
+        return  query.getSingleResult();
     }
 }

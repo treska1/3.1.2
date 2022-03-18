@@ -4,11 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/admin")
@@ -58,9 +61,13 @@ public class AdminController {
     }
 
     @PostMapping("/user-update/{id}")
-    public String userUpdate(@ModelAttribute("user") User user) {
+    public String userUpdate(@ModelAttribute("user") User user,@RequestParam("roleSelect") long []roles) {
+        Set<Role> roleSet = new HashSet<>();
+        for (long role: roles) {
+            roleSet.add(roleService.getRoleById(role));
+        }
+        user.setRoles(roleSet);
         userService.updateUser(user);
-
         return "redirect:/admin/allusers";
 
     }

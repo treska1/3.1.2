@@ -17,8 +17,6 @@
             <th>Username</th>
             <th>Password</th>
             <th>Roles</th>
-
-
         </tr>
         <tr th:each="user : ${allUsers}">
             <td th:text="${user.name}">Name</td>
@@ -27,13 +25,14 @@
             <td th:text="${user.username}">Username</td>
             <td th:text="${user.password}">Password</td>
             <td th:each="role : ${user.roles}" th:text="${role.name}">Role</td>
-
             <td><a th:href="@{user-update/{id}(id=${user.id})}">Edit</a></td>
             <td><a th:href="@{user-delete/{id}(id=${user.id})}">Delete</a></td>
         </tr>
     </table>
     </div>
 <p><a th:href="@{user-create}">Create user</a></p>
+    <br>
+    <a th:href="@{/user}">Self info</a>
     <br>
     <a th:href="@{/logout}">logout</a>
 </div>
