@@ -42,9 +42,6 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void saveUser(User user) {
         user.setPassword(encoder.encode(user.getPassword()));
-        Set<Role> roles = new HashSet<>();
-        roles.add(roleDAO.getRoleById(2L));
-        user.setRoles(roles);
         manager.persist(user);
     }
 
@@ -59,9 +56,9 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User getUserByUsername(String username) {
-        TypedQuery<User> query = manager.createQuery("select u from User u where u.username = :username", User.class)
-                .setParameter("username", username);
+    public User getUserByEmail(String email) {
+        TypedQuery<User> query = manager.createQuery("select u from User u where u.email = :email", User.class)
+                .setParameter("email", email);
         return  query.getSingleResult();
     }
 }

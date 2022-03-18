@@ -12,13 +12,13 @@
                 <th>Name</th>
                 <th>Surname</th>
                 <th>Age</th>
-                <th>Username</th>
+                <th>Email</th>
             </tr>
             <tr>
                 <td th:text="${user.name}"></td>
                 <td th:text="${user.surname}"></td>
                 <td th:text="${user.age}"></td>
-                <td th:text="${user.username}"></td>
+                <td th:text="${user.email}"></td>
                 <td th:each="role : ${roles}" th:text="${role.name}">Role</td>
             </tr>
         </table>

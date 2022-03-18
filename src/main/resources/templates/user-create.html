@@ -23,12 +23,14 @@
     <br>
     <label for="age">Username</label>
     <br>
-    <input type="text" th:field="*{username}" id="username" >
+    <input type="text" th:field="*{email}" id="username" >
     <br>
     <label for="age">Password</label>
     <br>
     <input type="text" th:field="*{password}" id="password" >
     <br>
+    <input type="checkbox" name="roleSelect" value="1"/> ADMIN
+    <input type="checkbox" name="roleSelect" value="2"/> USER
     <br>
     <button type="submit">Save</button>
     <br>
