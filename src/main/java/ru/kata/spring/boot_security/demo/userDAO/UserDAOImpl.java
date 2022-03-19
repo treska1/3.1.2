@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -62,6 +63,11 @@ public class UserDAOImpl implements UserDAO {
     public User getUserByUsername(String username) {
         TypedQuery<User> query = manager.createQuery("select u from User u where u.username = :username", User.class)
                 .setParameter("username", username);
-        return  query.getSingleResult();
+        List result = query.getResultList();
+        if (result.isEmpty()){
+            return null;
+        } else {
+            return (User) result.get(0);
+        }
     }
 }

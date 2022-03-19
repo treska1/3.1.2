@@ -24,6 +24,11 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void saveUser(User user) {
+        System.out.println(user);
+        User fromDB = userDAO.getUserByUsername(user.getUsername());
+        if (fromDB!=null){
+            throw new IllegalArgumentException(String.format("User %s already exists", user.getUsername()));
+        }
         userDAO.saveUser(user);
     }
 
@@ -53,14 +58,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-
     public User getUserByUsername(String username) {
         return userDAO.getUserByUsername(username);
     }
 
     @Override
     @Transactional
-
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userDAO.getUserByUsername(username);
     }
