@@ -23,7 +23,7 @@ public class User implements UserDetails {
     private String surname;
     @Column(name = "age")
     private byte age;
-    @Column(name = "email")
+    @Column(name = "email",unique = true)
     private String email;
     @Column(name = "password")
     private String password;

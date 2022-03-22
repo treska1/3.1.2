@@ -5,6 +5,7 @@
     <title>Admin page</title>
 </head>
 <body>
+<div th:insert="~{navbar :: copy}"></div>
 <h2>Welcome to the admin panel!</h2>
 <a th:href="@{/admin/allusers}">Users info</a>
 <a th:href="@{/logout}">logout</a>
